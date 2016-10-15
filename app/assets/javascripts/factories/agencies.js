@@ -6,7 +6,7 @@ angular.module('agencies')
     url = '/api/agencies/:id';
     return $resource(url, {}, {
       get: {method:'GET'},
-      query: {method:'GET', isArray:true},
+      query: {method:'GET'},
       create: {method:'POST'},
       update: {method:'PATCH'},
       remove: {method:'DELETE'}
