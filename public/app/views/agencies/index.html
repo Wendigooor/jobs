@@ -1,11 +1,11 @@
 
 <div class="row">
   <div class="col-md-8">
-    <div ng-repeat="agency in agencies | orderBy:'id'" class="panel panel-default">
+    <div ng-repeat="agency in agencies | orderBy:'grade' | filter:{name:search.name}:strict | filter:searchByTags(search.tags)" class="panel panel-default">
       <div class="panel-heading">
         <h4>
           {{agency.name}} 
-          <small>{{agency.tags}}</small>
+          <span class="tags">{{agency.tagNames.join(', ')}}</span>
           <span class="grade label" ng-class='agencyClass(agency)'>{{agency.grade}}</span>
         </h4>
       </div>
@@ -14,6 +14,19 @@
   </div>
 
   <div class="col-md-4">
+    <div class="panel panel-default panel-info">
+      <div class="panel-heading">
+        <h4>Filter your agencies</h4>
+      </div>
+      <div class="panel-body">
+        <label>Filter by name</label>
+        <input class="form-control" ng-model="search.name" placeholder="Enter a name"/>
+        <br>
+        <label>Filter by tags</label>
+        <input class="form-control" tags ng-model="search.tags" placeholder="Enter a tag"/>
+      </div>
+    </div>
+
     <div class="panel panel-default panel-info">
       <div class="panel-heading">
         <h4>Add an agency</h4>
@@ -26,7 +39,8 @@
         <textarea class="form-control" ng-model="agency.description" placeholder="Agency's description"/>
         <br>
         <label>Tags</label>
-        <input class="form-control" ng-model="agency.tags" placeholder="Tags"/>
+        <input class="form-control" tags ng-model="agency.tags" placeholder="Tags"/>
+        <span>Separate by comma</span>
         <br>
         <label>Grade</label>
         <select class="form-control" ng-model="agency.grade" ng-options="name as id for (id, name) in possibleGrades"/>
